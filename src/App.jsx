@@ -4,6 +4,7 @@ import HomeScreen from "./components/HomeScreen";
 import RoundingApp from "./problems/rounding/RoundingApp";
 import CheeseApp from "./problems/cheese/CheeseApp";
 import MooApp from "./problems/moo/MooApp";
+import FencesApp from "./problems/fences/FencesApp";
 
 export default function App() {
   const [page, setPage] = useState("home");
@@ -24,6 +25,7 @@ export default function App() {
       {page === "rounding" && <RoundingApp />}
       {page === "cheese" && <CheeseApp />}
       {page === "moo" && <MooApp />}
+      {page === "fences" && <FencesApp />}
     </div>
   );
 }
