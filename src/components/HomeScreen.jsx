@@ -1,0 +1,33 @@
+import { C } from "../theme";
+
+export default function HomeScreen({ onSelect }) {
+  const problems = [
+    {id:"rounding",emoji:"🔄",title:"Roundabout Rounding",sub:"Dec 2024 Bronze #1",color:C.accent},
+    {id:"cheese",emoji:"🧀",title:"Cheese Block",sub:"Dec 2024 Bronze #2",color:"#d97706"},
+    {id:"moo",emoji:"🐄",title:"It's Mooin' Time",sub:"Dec 2024 Bronze #3",color:"#7c5cfc"},
+  ];
+  return (
+    <div style={{maxWidth:440,margin:"0 auto",padding:"20px 0"}}>
+      <div style={{textAlign:"center",marginBottom:28}}>
+        <div style={{fontSize:64,marginBottom:8}}>⚔️</div>
+        <div style={{fontSize:28,fontWeight:900,color:C.text,fontFamily:"'Jua',sans-serif"}}>CodeQuest</div>
+        <div style={{fontSize:14,color:C.dim,marginTop:4,fontFamily:"'Jua',sans-serif"}}>인터랙티브 알고리즘 풀이</div>
+      </div>
+      <div style={{display:"flex",flexDirection:"column",gap:10}}>
+        {problems.map(p=>(
+          <button key={p.id} onClick={()=>onSelect(p.id)} style={{
+            display:"flex",alignItems:"center",gap:14,padding:"16px 18px",borderRadius:14,cursor:"pointer",textAlign:"left",
+            background:C.card,border:`2px solid ${C.border}`,boxShadow:"0 2px 10px rgba(0,0,0,.04)",transition:"all .15s"}}>
+            <div style={{fontSize:36,flexShrink:0}}>{p.emoji}</div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:15,fontWeight:800,color:C.text,fontFamily:"'Jua',sans-serif"}}>{p.title}</div>
+              <div style={{fontSize:12,fontWeight:600,color:C.dim,marginTop:2}}>{p.sub}</div>
+            </div>
+            <div style={{fontSize:20,color:C.dimLight}}>→</div>
+          </button>
+        ))}
+      </div>
+      <div style={{textAlign:"center",marginTop:24,fontSize:12,color:C.dimLight}}>문제 계속 추가 예정...</div>
+    </div>
+  );
+}
