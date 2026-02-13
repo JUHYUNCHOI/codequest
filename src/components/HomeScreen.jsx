@@ -17,6 +17,7 @@ const sections = [
     color: "#059669",
     problems: [
       {id:"fences",emoji:"🏗️",title:"Building Fences",sub:"MCC 2025 P1",color:"#059669"},
+      {id:"fans",emoji:"🪭",title:"Fans",sub:"MCC 2025 P2",color:"#d97706"},
     ],
   },
 ];

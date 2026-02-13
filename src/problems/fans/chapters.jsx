@@ -101,118 +101,19 @@ export function makeFansCh1(E) {
         "Red Blue Red Blue — every neighbor is different! The other two have same-color neighbors.",
         "빨파빨파 — 모든 이웃이 다른 색! 나머지는 같은 색이 붙어 있어."),
     },
-    // 1-4: The "dominant color" problem
+    // 1-4: Three cases — watch sticks get placed one by one
     {
-      type: "reveal",
+      type: "fanPlacementViz",
       narr: t(E,
-        "What if one color has WAY more sticks than the others? That's the key challenge!",
-        "한 색이 다른 색보다 훨씬 많으면 어떻게 될까? 이게 핵심이야!"),
-      content: (() => {
-        const R = "#ef4444", B = "#3b82f6", G = "#22c55e";
-        return (
-          <div style={{ padding: 16 }}>
-            <div style={{ fontSize: 13, fontWeight: 800, color: "#d97706", marginBottom: 8 }}>
-              {t(E, "Example: Red=7, Blue=2, Green=2", "예시: 빨강=7, 파랑=2, 초록=2")}
-            </div>
-            {/* All sticks available */}
-            <div style={{ marginBottom: 10 }}>
-              <div style={{ fontSize: 11, color: C.dim, fontWeight: 700, marginBottom: 4 }}>
-                {t(E, "Available sticks:", "사용 가능한 막대:")}
-              </div>
-              <div style={{ display: "flex", gap: 3, flexWrap: "wrap", justifyContent: "center" }}>
-                {Array(7).fill(R).concat(Array(2).fill(B), Array(2).fill(G)).map((col, i) => (
-                  <div key={i} style={{
-                    width: 24, height: 36, borderRadius: 4,
-                    background: col, border: `1.5px solid ${col}`,
-                  }} />
-                ))}
-              </div>
-              <div style={{ fontSize: 10, color: C.dim, marginTop: 2, textAlign: "center" }}>
-                {t(E, "Total: 11 sticks", "총합: 11개")}
-              </div>
-            </div>
-            {/* Best arrangement */}
-            <div style={{
-              background: "#ecfdf5", borderRadius: 10, padding: 10,
-              border: "2px solid #6ee7b7",
-            }}>
-              <div style={{ fontSize: 11, color: "#059669", fontWeight: 700, marginBottom: 4 }}>
-                {t(E, "Best arrangement (5 sticks):", "최선의 배치 (5개):")}
-              </div>
-              <div style={{ display: "flex", gap: 3, justifyContent: "center" }}>
-                {[R, B, R, G, R].map((col, i) => (
-                  <div key={i} style={{
-                    width: 28, height: 42, borderRadius: 5,
-                    background: col, border: `2px solid ${col}`,
-                    boxShadow: `0 2px 6px ${col}44`,
-                  }} />
-                ))}
-              </div>
-              <div style={{ fontSize: 11, color: "#059669", fontWeight: 800, marginTop: 6, textAlign: "center" }}>
-                {t(E,
-                  "R B R G R — only 5 out of 11! 😢",
-                  "빨 파 빨 초 빨 — 11개 중 5개만! 😢")}
-              </div>
-            </div>
-            <div style={{ fontSize: 11, color: C.dim, marginTop: 8, textAlign: "center", lineHeight: 1.6 }}>
-              {t(E,
-                "Red has too many! The 'others' (4 sticks) act as separators. Each separator lets us place 1 more red.",
-                "빨강이 너무 많아! '나머지' (4개)가 분리자 역할. 분리자 1개당 빨강 1개 더 놓을 수 있어.")}
-            </div>
-          </div>
-        );
-      })(),
+        "When can we use all sticks? It depends on how many of the most common color we have! Try all three cases and watch sticks get placed one by one.",
+        "언제 막대를 전부 쓸 수 있을까? 가장 많은 색이 얼마나 많은지에 달려있어! 세 가지 경우를 직접 확인해봐."),
     },
-    // 1-5: The formula concept
+    // 1-5: Why 2×rest+1?
     {
-      type: "reveal",
+      type: "separatorBuildViz",
       narr: t(E,
-        "Here's the key insight: the 'rest' sticks (everything except the biggest group) are separators for the dominant color!",
-        "핵심 아이디어: '나머지' 막대(가장 많은 색 제외)가 가장 많은 색의 분리자야!"),
-      content: (() => {
-        const R = "#ef4444", G = "#d1d5db";
-        return (
-          <div style={{ padding: 16 }}>
-            <div style={{ fontSize: 13, fontWeight: 800, color: "#d97706", marginBottom: 10 }}>
-              {t(E, "Separator concept", "분리자 개념")}
-            </div>
-            {/* Visual: slots */}
-            <div style={{ marginBottom: 12 }}>
-              <div style={{ fontSize: 11, color: C.dim, fontWeight: 700, marginBottom: 4, textAlign: "center" }}>
-                {t(E, "rest = 2 separators → can place 3 dominant", "나머지 = 2개 분리자 → 가장 많은 색 3개 배치 가능")}
-              </div>
-              <div style={{ display: "flex", gap: 3, justifyContent: "center", alignItems: "center" }}>
-                {[R, G, R, G, R].map((col, i) => (
-                  <div key={i} style={{
-                    width: 32, height: 44, borderRadius: 5,
-                    background: col === R ? col : "transparent",
-                    border: `2.5px ${col === R ? "solid" : "dashed"} ${col === R ? col : "#9ca3af"}`,
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: 10, fontWeight: 800, color: col === R ? "#fff" : "#9ca3af",
-                  }}>{col === R ? t(E, "MAX", "최대") : t(E, "sep", "분리")}</div>
-                ))}
-              </div>
-            </div>
-            {/* Formula box */}
-            <div style={{
-              background: "#fffbeb", borderRadius: 10, padding: 12,
-              border: "2px solid #fbbf24", textAlign: "center",
-            }}>
-              <div style={{ fontSize: 12, color: C.dim, fontWeight: 700, marginBottom: 6 }}>
-                {t(E, "The formula:", "공식:")}
-              </div>
-              <div style={{ fontFamily: "'JetBrains Mono',monospace", fontSize: 14, fontWeight: 900, color: "#d97706", lineHeight: 2 }}>
-                total = {t(E, "sum of all", "전체 합")}<br />
-                max_c = {t(E, "biggest group", "가장 큰 그룹")}<br />
-                rest = total - max_c<br />
-                <span style={{ fontSize: 16 }}>
-                  {t(E, "answer", "답")} = min(total, 2×rest+1)
-                </span>
-              </div>
-            </div>
-          </div>
-        );
-      })(),
+        "Why 2×rest+1? Add separators one by one and watch the pattern emerge! Each separator lets you place one more dominant stick.",
+        "왜 2×rest+1일까? 분리자를 하나씩 추가하면서 패턴을 직접 확인해봐! 분리자 1개 = 가장 많은 색 1개를 더 놓을 수 있어."),
     },
     // 1-6: Quiz — apply the formula
     {
